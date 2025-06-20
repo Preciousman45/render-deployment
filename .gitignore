@@ -1,0 +1,11 @@
+# Ignore Node modules
+node_modules/
+
+# Never commit environment files
+.env
+
+# Ignore logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+
