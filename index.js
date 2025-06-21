@@ -34,6 +34,25 @@ app.delete('/tasks/:id', async (req, res) => {
   res.json({ message: 'Task deleted' });
 });
 
+
+// ✅ Health check endpoint for Render
+app.get('/healthz', (req, res) => {
+  res.status(200).json({ status: 'ok', uptime: process.uptime() });
+});
+
+
+
+
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`)))
-  .catch(err => console.error(err));
+  .then(() => {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 Server listening on port ${PORT}`);
+    });
+  })
+  .catch(err => console.error('MongoDB connection error:', err));
+
+
+
+// mongoose.connect(process.env.MONGO_URI)
+//   .then(() => app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`)))
+//   .catch(err => console.error(err));
